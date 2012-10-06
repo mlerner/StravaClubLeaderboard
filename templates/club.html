@@ -15,7 +15,8 @@
                                     <th>Name</th>
                                     <th id="climbing-bg" style="background: #ffffff; "><a style="#DF4418" href="#most_climbing">Climbing (m)</a></th>
                                     <th id="distance-bg"><a href="#most_distance">Distance (m)</a></th>
-                                    <th id="time-bg"><a href="#most_time">Moving Time (seconds)</a></th>
+                                    <th id="avg-climbing-bg"><a href="#most_time">Average Climbing (meters)</a></th>
+                                    <th id="rides-bg"><a href="#rides">Number of Rides</a></th>
 
                                 </tr>
                             </thead>
@@ -28,7 +29,8 @@
                                             <td>{{member.name}}</td>
                                             <td>{{member.elevation_gain}}</td>
                                             <td>{{member.distance}}</td>
-                                            <td>{{member.moving_time}}</td>
+                                            <td>{{member.climbing_per_ride}}</td>
+                                            <td>{{member.number_of_rides}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -38,13 +40,14 @@
                             {% if ranked_by_distance %}
                             <div  style="display: none">
                                     <tbody id="ranked-by-distance" style="display: none">
-                                        {% for member in ranked_by_time %}
+                                        {% for member in ranked_by_distance %}
                                         <tr>
                                             <td>{{loop.index}}</td>
                                             <td>{{member.name}}</td>
                                             <td>{{member.elevation_gain}}</td>
                                             <td>{{member.distance}}</td>
-                                            <td>{{member.moving_time}}</td>
+                                            <td>{{member.climbing_per_ride}}</td>
+                                            <td>{{member.number_of_rides}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -52,21 +55,39 @@
                             </div>
                             {% endif %}
 
-                            {% if ranked_by_time %}
+                            {% if ranked_by_avg_climbing %}
                             <div  style="display: none">
-                                   <tbody id="ranked-by-time" style="display: none">
-                                        {% for member in ranked_by_time %}
+                                   <tbody id="ranked-by-avg-climbing" style="display: none">
+                                        {% for member in ranked_by_avg_climbing %}
                                         <tr>
                                             <td>{{loop.index}}</td>
                                             <td>{{member.name}}</td>
                                             <td>{{member.elevation_gain}}</td>
                                             <td>{{member.distance}}</td>
-                                            <td>{{member.moving_time}}</td>
+                                            <td>{{member.climbing_per_ride}}</td>
+                                            <td>{{member.number_of_rides}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
                             </div>
                             {% endif %}
+                            {% if ranked_by_rides %}
+                            <div  style="display: none">
+                                   <tbody id="ranked-by-rides" style="display: none">
+                                        {% for member in ranked_by_rides %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+                                            <td>{{member.name}}</td>
+                                            <td>{{member.elevation_gain}}</td>
+                                            <td>{{member.distance}}</td>
+                                            <td>{{member.climbing_per_ride}}</td>
+                                            <td>{{member.number_of_rides}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                            </div>
+                            {% endif %}
+
                                 </table>
                 </div>
             </div>

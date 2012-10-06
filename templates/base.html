@@ -29,34 +29,54 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
-            $most_climbing = $('#climbing-bg');
-            $most_distance = $('#distance-bg');
-            $most_time = $('#time-bg');
+            $mostClimbing = $('#climbing-bg');
+            $mostDistance = $('#distance-bg');
+            $mostAvgClimbing = $('#avg-climbing-bg');
+            $mostRides = $('#rides-bg');
 
-            $most_climbing.click(function(){
+            $mostClimbing.click(function(){
                 console.log('hmm');
                 $('#ranked-by-elevation').show();
                 $('#ranked-by-distance').hide();
-                $('#ranked-by-time').hide();
-                $('#climbing-bg').css("background", "#ffffff");
-                $('#time-bg').css("background", "#DF4418");
-                $('#distance-bg').css("background", "#DF4418");
+                $('#ranked-by-avg-climbing').hide();
+                $('#ranked-by-rides').hide();
+                $mostClimbing.css("background", "#ffffff");
+                $mostAvgClimbing.css("background", "#DF4418");
+                $mostDistance.css("background", "#DF4418");
+                $mostRides.css("background", "#DF4418");
             });
-            $most_distance.click(function(){
+
+            $mostDistance.click(function(){
                 $('#ranked-by-elevation').hide();
                 $('#ranked-by-distance').show();
-                $('#ranked-by-time').hide();
-                $('#climbing-bg').css("background", "#DF4418");
-                $('#time-bg').css("background", "#DF4418");
-                $('#distance-bg').css("background", "#ffffff");
+                $('#ranked-by-avg-climbing').hide();
+                $('#ranked-by-rides').hide();
+                $mostClimbing.css("background", "#DF4418");
+                $mostAvgClimbing.css("background", "#DF4418");
+                $mostDistance.css("background", "#ffffff");
+                $mostRides.css("background", "#DF4418");
             });
-            $most_time.click(function(){
+
+            $mostAvgClimbing.click(function(){
                 $('#ranked-by-elevation').hide();
                 $('#ranked-by-distance').hide();
-                $('#ranked-by-time').show();
-                $('#climbing-bg').css("background", "#DF4418");
-                $('#time-bg').css("background", "#ffffff");
-                $('#distance-bg').css("background", "#DF4418");
+                $('#ranked-by-avg-climbing').show();
+                $('#ranked-by-rides').hide();
+                $mostClimbing.css("background", "#DF4418");
+                $mostAvgClimbing.css("background", "#ffffff");
+                $mostDistance.css("background", "#DF4418");
+                $mostRides.css("background", "#DF4418");
+            });
+
+            $mostRides.click(function(){
+                $('#ranked-by-elevation').hide();
+                $('#ranked-by-distance').hide();
+                $('#ranked-by-avg-climbing').hide();
+                $('#ranked-by-rides').show();
+                $mostClimbing.css("background", "#DF4418");
+                $mostAvgClimbing.css("background", "#DF4418");
+                $mostDistance.css("background", "#DF4418");
+                $mostRides.css("background", "#ffffff");
             });
         });
     </script>
