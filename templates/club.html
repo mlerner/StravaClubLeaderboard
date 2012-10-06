@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block body_content %}
+    <div style="margin-top: 50px" class="container">
+        <div class="row-fluid">
+            <div class="span8 offset2">
+                <div class="club-data">
+                    {% if club_data %}
+                    <h1>{{club_data.club.name}} club rankings for {{leaderboard_date}}</h1>
+                    <p class="lead">{{club_data.club.description}}</p>
+                    {% endif %}
+                        <table class="table elevation">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Name</th>
+                                    <th id="climbing-bg" style="background: #ffffff; "><a style="#DF4418" href="#most_climbing">Climbing (m)</a></th>
+                                    <th id="distance-bg"><a href="#most_distance">Distance (m)</a></th>
+                                    <th id="time-bg"><a href="#most_time">Moving Time (seconds)</a></th>
+
+                                </tr>
+                            </thead>
+                            {% if ranked_by_elevation %}
+                                <div >
+                                    <tbody id="ranked-by-elevation">
+                                        {% for member in ranked_by_elevation %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+                                            <td>{{member.name}}</td>
+                                            <td>{{member.elevation_gain}}</td>
+                                            <td>{{member.distance}}</td>
+                                            <td>{{member.moving_time}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </div>
+                            {% endif %}
+
+                            {% if ranked_by_distance %}
+                            <div  style="display: none">
+                                    <tbody id="ranked-by-distance" style="display: none">
+                                        {% for member in ranked_by_time %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+                                            <td>{{member.name}}</td>
+                                            <td>{{member.elevation_gain}}</td>
+                                            <td>{{member.distance}}</td>
+                                            <td>{{member.moving_time}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+
+                            </div>
+                            {% endif %}
+
+                            {% if ranked_by_time %}
+                            <div  style="display: none">
+                                   <tbody id="ranked-by-time" style="display: none">
+                                        {% for member in ranked_by_time %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+                                            <td>{{member.name}}</td>
+                                            <td>{{member.elevation_gain}}</td>
+                                            <td>{{member.distance}}</td>
+                                            <td>{{member.moving_time}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                            </div>
+                            {% endif %}
+                                </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

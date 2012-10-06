@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Strava Club LeaderBoards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le styles -->
+    <link href="{{url_for('static', filename='css/bootstrap.css')}} " rel="stylesheet">
+    <link href="{{url_for('static', filename='css/bootstrap-responsive.css')}} " rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    {% block extra_header %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
+       <div class="container">
+       <a class="brand" href="/">Strava Club Leaderboards</a>
+     </div>
+     </div>
+   </nav>
+    {% block body_content %}{% endblock %}
+    <footer>{% block footer_content %}{% endblock %}</footer>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $most_climbing = $('#climbing-bg');
+            $most_distance = $('#distance-bg');
+            $most_time = $('#time-bg');
+
+            $most_climbing.click(function(){
+                console.log('hmm');
+                $('#ranked-by-elevation').show();
+                $('#ranked-by-distance').hide();
+                $('#ranked-by-time').hide();
+                $('#climbing-bg').css("background", "#ffffff");
+                $('#time-bg').css("background", "#DF4418");
+                $('#distance-bg').css("background", "#DF4418");
+            });
+            $most_distance.click(function(){
+                $('#ranked-by-elevation').hide();
+                $('#ranked-by-distance').show();
+                $('#ranked-by-time').hide();
+                $('#climbing-bg').css("background", "#DF4418");
+                $('#time-bg').css("background", "#DF4418");
+                $('#distance-bg').css("background", "#ffffff");
+            });
+            $most_time.click(function(){
+                $('#ranked-by-elevation').hide();
+                $('#ranked-by-distance').hide();
+                $('#ranked-by-time').show();
+                $('#climbing-bg').css("background", "#DF4418");
+                $('#time-bg').css("background", "#ffffff");
+                $('#distance-bg').css("background", "#DF4418");
+            });
+        });
+    </script>
+</body>
+</html>
