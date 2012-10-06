@@ -12,6 +12,8 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
+
+    #If you posted, try to redirect to a club page (you submitted the club ID form)
     if request.method == 'POST':
         if request.form['club_id']:
             club_id = request.form['club_id']
@@ -50,13 +52,17 @@ def map_rides_to_users(existing_users, club_id):
     now = datetime.datetime.now()
     print existing_users.json
     for member in existing_users.json[u'members']:
-        #print member[u'id']
+
+        #   Initialize the user data you want to rank on
         member['distance'] = 0
         member['elevation_gain'] = 0
         member['moving_time'] = 0
         member['number_of_rides'] = 0
         member['climbing_per_ride'] = 0
         receiving_json_results = True
+
+        #   While you haven't changed the receiving JSON flag, continue 
+        #   adding rides to the user collection.
         while(receiving_json_results):
             club_ride_data_url = 'http://app.strava.com/api/v1/rides?athleteId=' + str(member[u'id']) +'&startDate=' + str(now.year) +'-' + str(now.month) + '-01&clubId=' + str(club_id) + '&offset=' + str(offset)
             #print club_ride_data_url
@@ -66,7 +72,8 @@ def map_rides_to_users(existing_users, club_id):
             else:
                 for ride in club_ride_data.json[u'rides']:
                     ride_result_data = requests.get('http://www.strava.com/api/v2/rides/' + str(ride[u'id']))
-                    #print ride_result_data.json[u'ride'][u'start_date_local'], ride_result_data.json[u'ride'][u'distance'], ride_result_data.json[u'ride'][u'elevation_gain'], ride_result_data.json[u'ride'][u'moving_time']
+
+                    #   Add up all of the metrics
                     member['distance'] += ride_result_data.json[u'ride'][u'distance']
                     member['elevation_gain'] += ride_result_data.json[u'ride'][u'elevation_gain']
                     member['moving_time'] += (ride_result_data.json[u'ride'][u'moving_time'])
@@ -80,8 +87,8 @@ def map_rides_to_users(existing_users, club_id):
         offset = 0
         #print club_ride_data.json
 
-    #print leaderboard
     return leaderboard
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)

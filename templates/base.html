@@ -29,17 +29,21 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            
+            //jQuery selectors.
             $mostClimbing = $('#climbing-bg');
             $mostDistance = $('#distance-bg');
             $mostAvgClimbing = $('#avg-climbing-bg');
             $mostRides = $('#rides-bg');
 
             $mostClimbing.click(function(){
-                console.log('hmm');
+                //The first four hide all tables except for the one you are trying to select.
                 $('#ranked-by-elevation').show();
                 $('#ranked-by-distance').hide();
                 $('#ranked-by-avg-climbing').hide();
                 $('#ranked-by-rides').hide();
+
+                //These change the background color so that you have a pretty nav.
                 $mostClimbing.css("background", "#ffffff");
                 $mostAvgClimbing.css("background", "#DF4418");
                 $mostDistance.css("background", "#DF4418");
