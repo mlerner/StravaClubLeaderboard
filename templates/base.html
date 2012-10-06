@@ -27,8 +27,26 @@
     {% block body_content %}{% endblock %}
     <footer>{% block footer_content %}{% endblock %}</footer>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.js"></script>
+        <script src="{{url_for('static', filename='js/jquery.tablesorter.js')}}"></script>
     <script>
         $(document).ready(function(){
+            $("#test-tablesorter").dataTable({
+                    "bFilter": false,
+                    "bSearchable":false,
+                    "bLengthMenu":false,
+                    "bInfo":false,
+                    "iDisplayLength": -1,
+                    "aoColumns": [
+                        { "asSorting": [ "desc", "asc" ] },
+                        { "bSortable": false },
+                        { "asSorting": [ "desc" ] },
+                        { "asSorting": [ "desc" ] },
+                        { "asSorting": [ "desc" ] },
+                        { "asSorting": [ "desc" ] },
+                    ],
+            }); 
+        $('#test-tablesorter_length').hide();
             
             //jQuery selectors.
             $mostClimbing = $('#climbing-bg');
@@ -38,10 +56,12 @@
 
             $mostClimbing.click(function(){
                 //The first four hide all tables except for the one you are trying to select.
+                /*
                 $('#ranked-by-elevation').show();
                 $('#ranked-by-distance').hide();
                 $('#ranked-by-avg-climbing').hide();
                 $('#ranked-by-rides').hide();
+                */
 
                 //These change the background color so that you have a pretty nav.
                 $mostClimbing.css("background", "#ffffff");
@@ -51,10 +71,12 @@
             });
 
             $mostDistance.click(function(){
+            /*
                 $('#ranked-by-elevation').hide();
                 $('#ranked-by-distance').show();
                 $('#ranked-by-avg-climbing').hide();
                 $('#ranked-by-rides').hide();
+                */
                 $mostClimbing.css("background", "#DF4418");
                 $mostAvgClimbing.css("background", "#DF4418");
                 $mostDistance.css("background", "#ffffff");
@@ -62,10 +84,12 @@
             });
 
             $mostAvgClimbing.click(function(){
+            /*
                 $('#ranked-by-elevation').hide();
                 $('#ranked-by-distance').hide();
                 $('#ranked-by-avg-climbing').show();
                 $('#ranked-by-rides').hide();
+                */
                 $mostClimbing.css("background", "#DF4418");
                 $mostAvgClimbing.css("background", "#ffffff");
                 $mostDistance.css("background", "#DF4418");
@@ -73,10 +97,12 @@
             });
 
             $mostRides.click(function(){
+            /*
                 $('#ranked-by-elevation').hide();
                 $('#ranked-by-distance').hide();
                 $('#ranked-by-avg-climbing').hide();
                 $('#ranked-by-rides').show();
+                */
                 $mostClimbing.css("background", "#DF4418");
                 $mostAvgClimbing.css("background", "#DF4418");
                 $mostDistance.css("background", "#DF4418");

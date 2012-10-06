@@ -10,7 +10,7 @@
                     {% endif %}
                     <!--Maybe not the prettiest way of doing this. You could try 
                       hacking a data-{{parameter}} sort method together with jQuery. You did build this in a couple hours though.-->
-                        <table class="table elevation">
+                        <table id="test-tablesorter" class="table elevation">
                             <thead>
                                 <tr>
                                     <th>Rank</th>
@@ -22,10 +22,10 @@
 
                                 </tr>
                             </thead>
-                            {% if ranked_by_elevation %}
+                            {% if ranked %}
                                 <div >
                                     <tbody id="ranked-by-elevation">
-                                        {% for member in ranked_by_elevation %}
+                                        {% for member in ranked %}
                                         <tr>
                                             <td>{{loop.index}}</td>
                                             <td>{{member.name}}</td>
@@ -39,57 +39,7 @@
                                 </div>
                             {% endif %}
 
-                            {% if ranked_by_distance %}
-                            <div  style="display: none">
-                                    <tbody id="ranked-by-distance" style="display: none">
-                                        {% for member in ranked_by_distance %}
-                                        <tr>
-                                            <td>{{loop.index}}</td>
-                                            <td>{{member.name}}</td>
-                                            <td>{{member.elevation_gain}}</td>
-                                            <td>{{member.distance}}</td>
-                                            <td>{{member.climbing_per_ride}}</td>
-                                            <td>{{member.number_of_rides}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-
-                            </div>
-                            {% endif %}
-
-                            {% if ranked_by_avg_climbing %}
-                            <div  style="display: none">
-                                   <tbody id="ranked-by-avg-climbing" style="display: none">
-                                        {% for member in ranked_by_avg_climbing %}
-                                        <tr>
-                                            <td>{{loop.index}}</td>
-                                            <td>{{member.name}}</td>
-                                            <td>{{member.elevation_gain}}</td>
-                                            <td>{{member.distance}}</td>
-                                            <td>{{member.climbing_per_ride}}</td>
-                                            <td>{{member.number_of_rides}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                            </div>
-                            {% endif %}
-                            {% if ranked_by_rides %}
-                            <div  style="display: none">
-                                   <tbody id="ranked-by-rides" style="display: none">
-                                        {% for member in ranked_by_rides %}
-                                        <tr>
-                                            <td>{{loop.index}}</td>
-                                            <td>{{member.name}}</td>
-                                            <td>{{member.elevation_gain}}</td>
-                                            <td>{{member.distance}}</td>
-                                            <td>{{member.climbing_per_ride}}</td>
-                                            <td>{{member.number_of_rides}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                            </div>
-                            {% endif %}
-
+                            
                                 </table>
                 </div>
             </div>

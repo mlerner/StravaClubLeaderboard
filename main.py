@@ -32,14 +32,11 @@ def show_club_leaderboard(club_id):
     if u'error' not in returned_club_data.json:
         existing_users = requests.get('http://www.strava.com/api/v1/clubs/' + str(club_id) + '/members')
         leaderboard = map_rides_to_users(existing_users, club_id)
-        leaderboard_by_elevation = sorted(leaderboard, key=lambda k: k['elevation_gain'], reverse=True)
-        leaderboard_by_average_climbing = sorted(leaderboard, key=lambda k: k['climbing_per_ride'], reverse=True)
-        leaderboard_by_distance = sorted(leaderboard, key=lambda k: k['distance'], reverse=True)
-        leaderboard_by_rides = sorted(leaderboard, key=lambda k: k['number_of_rides'], reverse=True)
+        leaderboard = sorted(leaderboard, key=lambda k: k['elevation_gain'], reverse=True)
         club_data = returned_club_data.json 
         now = datetime.datetime.now()
         current_month = calendar.month_name[now.month]
-        return render_template('club.html', leaderboard_date=current_month, club_data=club_data, ranked_by_elevation=leaderboard_by_elevation, ranked_by_avg_climbing=leaderboard_by_average_climbing, ranked_by_rides=leaderboard_by_rides, ranked_by_distance=leaderboard_by_distance)
+        return render_template('club.html', ranked=leaderboard, club_data=club_data)
     abort(404)
 
 @app.errorhandler(404)
