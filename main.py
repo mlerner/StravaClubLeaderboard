@@ -47,10 +47,14 @@ def show_club_leaderboard(club_id):
         print returned_club_data.json
         if len(returned_club_data.json[u'clubs']) > 1:
             test_id = re.search("/(\d+)$/", converted_club_id) 
-            print 'Specified id: ' + test_id
+            print test_id
+            if (test_id is None):
+                abort(404)
+
             for club in returned_club_data.json[u'clubs']:
                 if club[u'id'] == test_id:
                     returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/' + str(club[u'id']))
+
         elif len(returned_club_data.json[u'clubs']) == 0:
             abort(404)
         else:
