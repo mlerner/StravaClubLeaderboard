@@ -69,7 +69,7 @@ def show_club_leaderboard(club_id):
         club_data = returned_club_data.json 
         now = datetime.datetime.now()
         current_month = calendar.month_name[now.month]
-        return render_template('club.html', ranked=leaderboard, club_data=club_data)
+        return render_template('club.html', ranked=leaderboard, club_data=club_data, current_month=current_month)
     abort(404)
 
 @app.errorhandler(404)
