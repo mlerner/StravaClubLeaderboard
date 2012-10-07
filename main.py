@@ -47,7 +47,7 @@ def show_club_leaderboard(club_id):
         print returned_club_data.json
         if len(returned_club_data.json[u'clubs']) > 1:
             test_id = re.search("/(\d+)$/", converted_club_id) 
-            print test_id
+            #print test_id
             if (test_id is None):
                 abort(404)
 
@@ -59,10 +59,10 @@ def show_club_leaderboard(club_id):
             abort(404)
         else:
             #print str(returned_club_data.json[u'clubs'][0][u'id'])
-            print 'len 1'
+            #print 'len 1'
             returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/' + str(returned_club_data.json[u'clubs'][0][u'id']))
-            print returned_club_data.json
-            print returned_club_data.json[u'club'][u'id']
+            #print returned_club_data.json
+            #print returned_club_data.json[u'club'][u'id']
             actual_club_id = int(returned_club_data.json[u'club'][u'id'])
     #    If you don't have an error message in the returned JSON, continue.
     #    otherwise, 404. Maybe someone is trying to break your code...
@@ -84,7 +84,7 @@ def map_rides_to_users(existing_users, club_id):
     offset = 0
     leaderboard = []
     now = datetime.datetime.now()
-    print existing_users.json
+    #print existing_users.json
     for member in existing_users.json[u'members']:
 
         #   Initialize the user data you want to rank on
