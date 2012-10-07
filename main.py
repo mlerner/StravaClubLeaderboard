@@ -33,7 +33,7 @@ def show_club_leaderboard(club_id):
     except ValueError:
         converted_club_id = str(club_id)
         print 'Is string'
-    print converted_club_id
+    #print converted_club_id
     if type(converted_club_id) is int:
         returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/' + str(club_id))
         actual_club_id = club_id
@@ -42,9 +42,9 @@ def show_club_leaderboard(club_id):
         filtered_club_id = converted_club_id.replace("-", " ")
         filtered_club_id = re.sub("^\d+\s|\s\d+\s|\s\d+$", " ", filtered_club_id)
         filtered_club_id = filtered_club_id.strip().replace(" ", '%20')
-        print filtered_club_id
+        #print filtered_club_id
         returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/?name=' + str(filtered_club_id))
-        print returned_club_data.json
+        #print returned_club_data.json
         if len(returned_club_data.json[u'clubs']) > 1:
             test_id = re.search("/(\d+)$/", converted_club_id) 
             #print test_id
