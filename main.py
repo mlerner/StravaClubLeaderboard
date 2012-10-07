@@ -71,6 +71,7 @@ def map_rides_to_users(existing_users, club_id):
                     ride_result_data = requests.get('http://www.strava.com/api/v2/rides/' + str(ride[u'id']))
 
                     #   Add up all of the metrics
+                    print ride_result_data.json[u'ride']
                     member['distance'] += ride_result_data.json[u'ride'][u'distance']
                     member['elevation_gain'] += ride_result_data.json[u'ride'][u'elevation_gain']
                     member['moving_time'] += (ride_result_data.json[u'ride'][u'moving_time'])
