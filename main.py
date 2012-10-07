@@ -7,6 +7,7 @@ import json
 import datetime
 import calendar
 import os
+import re
 
 app = Flask(__name__)
 
@@ -26,12 +27,44 @@ def index():
 def show_club_leaderboard(club_id):
     club_data = {}
     existing_users = {}
-    returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/' + str(club_id))
+    actual_club_id = 0
+    try:
+        converted_club_id = int(club_id)
+    except ValueError:
+        converted_club_id = str(club_id)
+        print 'Is string'
+    print converted_club_id
+    if type(converted_club_id) is int:
+        returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/' + str(club_id))
+        actual_club_id = club_id
+    else:
+
+        filtered_club_id = converted_club_id.replace("-", " ")
+        filtered_club_id = re.sub("^\d+\s|\s\d+\s|\s\d+$", " ", filtered_club_id)
+        filtered_club_id = filtered_club_id.strip().replace(" ", '%20')
+        print filtered_club_id
+        returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/?name=' + str(filtered_club_id))
+        print returned_club_data.json
+        if len(returned_club_data.json[u'clubs']) > 1:
+            test_id = re.search("/(\d+)$/", converted_club_id) 
+            print 'Specified id: ' + test_id
+            for club in returned_club_data.json[u'clubs']:
+                if club[u'id'] == test_id:
+                    returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/' + str(club[u'id']))
+        elif len(returned_club_data.json[u'clubs']) == 0:
+            abort(404)
+        else:
+            #print str(returned_club_data.json[u'clubs'][0][u'id'])
+            print 'len 1'
+            returned_club_data = requests.get('http://www.strava.com/api/v1/clubs/' + str(returned_club_data.json[u'clubs'][0][u'id']))
+            print returned_club_data.json
+            print returned_club_data.json[u'club'][u'id']
+            actual_club_id = int(returned_club_data.json[u'club'][u'id'])
     #    If you don't have an error message in the returned JSON, continue.
     #    otherwise, 404. Maybe someone is trying to break your code...
     if u'error' not in returned_club_data.json:
-        existing_users = requests.get('http://www.strava.com/api/v1/clubs/' + str(club_id) + '/members')
-        leaderboard = map_rides_to_users(existing_users, club_id)
+        existing_users = requests.get('http://www.strava.com/api/v1/clubs/' + str(actual_club_id) + '/members')
+        leaderboard = map_rides_to_users(existing_users, actual_club_id)
         leaderboard = sorted(leaderboard, key=lambda k: k['elevation_gain'], reverse=True)
         club_data = returned_club_data.json 
         now = datetime.datetime.now()
@@ -71,7 +104,7 @@ def map_rides_to_users(existing_users, club_id):
                     ride_result_data = requests.get('http://www.strava.com/api/v2/rides/' + str(ride[u'id']))
 
                     #   Add up all of the metrics
-                    print ride_result_data.json[u'ride']
+                    #print ride_result_data.json[u'ride']
                     member['distance'] += ride_result_data.json[u'ride'][u'distance']
                     member['elevation_gain'] += ride_result_data.json[u'ride'][u'elevation_gain']
                     member['moving_time'] += (ride_result_data.json[u'ride'][u'moving_time'])
